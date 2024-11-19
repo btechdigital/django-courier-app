@@ -1,0 +1,73 @@
+{% extends 'dashboard/main.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'dashboard/sidebar.html'%}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Payment Method</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active"> Payment Method</li>
+            </ol>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Payment Method
+                        </div>
+                        <div class="card-body">
+                            <form action="{% url 'add_payment_method' %}" method="post">
+                                {{form | crispy}}
+                                {% csrf_token %}
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-8">
+                        <div class="card-header">
+                            <i class="fa-solid fa-list"></i>
+                            Payment Method List
+                        </div>
+                        <div class="card-body">
+                            {% if payment_method_list %}
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                       <th>Name</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                	{% for a in payment_method_list %}
+                                    <tr>
+                                        
+                                        <td>{{a.payment_mode}}</td>
+                                        <td><a href="{% url 'update_payment_method' a.id%}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></i></a ></td>
+                                        <td><a href="{% url 'delete_payment' a.id%}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

@@ -1,0 +1,78 @@
+
+
+{% extends 'dashboard/main.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'dashboard/sidebar.html'%}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Tags</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Tags</li>
+            </ol>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Category
+                        </div>
+                        <div class="card-body">
+                            <form action="{% url 'add_tags' %}" method="post">
+                                {{form | crispy}}
+                                {% csrf_token %}
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-list"></i>
+                            Tag List
+                        </div>
+                        <div class="card-body">
+                            {% if tag_list %}
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Body</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Body</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                	{% for t in tag_list %}
+                                    <tr>
+                                        
+                                        <td>{{t.name}}</td>
+                                        <td>{{t.description}}</td>
+                                        <td><button class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></i></button></td>
+                                        <td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

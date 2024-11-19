@@ -1,0 +1,45 @@
+{% extends 'dashboard/main.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'dashboard/sidebar.html'%}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Settings</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active"> Settings</li>
+            </ol>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-12">
+                        <div class="card-header">
+                            <i class="fa-solid fa-plus"></i>
+                            Settings
+                        </div>
+                        <div class="card-body">
+                            <form action="" method="post" enctype="multipart/form-data">
+                                {{form | crispy}}
+                                {% csrf_token %}
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-6">
+                    <div class="card mb-6">
+                        <div class="card-header">
+                            <i class="fa-solid fa-list"></i>
+                            Agent List
+                        </div>
+                        <div class="card-body">
+                            
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </main>
+    {% endblock %}

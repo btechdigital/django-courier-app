@@ -1,0 +1,4 @@
+.pipfile/
+.db.sqlite3/
+.manage.py/
+tracking.zip/

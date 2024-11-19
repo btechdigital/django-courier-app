@@ -1,0 +1,82 @@
+{% extends 'dashboard/main.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'dashboard/sidebar.html'%}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">CLients</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active"> CLients</li>
+            </ol>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-plus"></i>
+                            Add CLients
+                        </div>
+                        <div class="card-body">
+                            <form action="{% url 'add_clients' %}" method="post">
+                                {{form | crispy}}
+                                {% csrf_token %}
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-8">
+                        <div class="card-header">
+                            <i class="fa-solid fa-list"></i>
+                            Client List
+                        </div>
+                        <div class="card-body">
+                            {% if client_list %}
+                            <table id="datatablesSimple">
+                                <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Website</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                       <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Website</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                	{% for c in client_list %}
+                                    <tr>
+                                        
+                                        <td>{{c.First_Name}}</td>
+                                        <td>{{c.Last_Name}}</td>
+                                        <td>{{c.email}}</td>
+                                        <td>{{c.website}}</td>
+                                        <td><button class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></i></button></td>
+                                        <td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button></td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer small text-muted"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% endblock %}

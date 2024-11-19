@@ -1,0 +1,335 @@
+{% extends 'dashboard/main.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+{% include 'dashboard/sidebar.html'%}
+<style type="text/css">
+</style>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Update Shipment</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active"> Add Shipment</li>
+            </ol>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if errors %}
+                <ul class="errors">
+                    {% for field_errors in errors %}
+                    {% for error in field_errors %}
+                    <div>{{ error }}</div>
+                    {% endfor %}
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-8 mb-0">
+                                {{ shipment_form.tracking_no|as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                SHIPPER DETAILS
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.shipper_name|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.shipper_phone|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.shipper_address|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.shipper_email|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                RECEIVER DETAILS
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.receivers_name|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.receivers_phone|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.receivers_address|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.receivers_email|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-plus"></i>
+                                Add Shipment
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.publish|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.shipment_client|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.shipment_agent|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.category|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.tags|as_crispy_field }}
+                                </div>
+                                <div class="form-group col-md-12 mb-0">
+                                    {{shipment_form.feature_image|as_crispy_field }}
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                SHIPMENT DETAILS
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.shipment_method|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.weight|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.package|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.product|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.payment_mode|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.carrier|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.departure_time|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.destination|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.pickup_time|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{shipment_form.comment|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                SHIPMENT DETAILS
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.courier_name|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.mode|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.quantity|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.total_frieght|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.carrier_reference_no|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.origin|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.pickup_date|as_crispy_field }}
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        {{ shipment_form.expected_delivery_date|as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Add SHIPMENT HISTORY
+                            </div>
+                            <div class="card-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <!--   <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Location</th>
+                                            <th>Status</th>
+                                            <th>Updated By</th>
+                                            <th>Remark</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for form in shipment_history_formset %}
+                                        <tr>
+                                            <td>{{ form.date|as_crispy_field }}</td>
+                                            <td>{{ form.lacation|as_crispy_field }}</td>
+                                            <td>{{ form.status|as_crispy_field }}</td>
+                                            <td>{{ form.remark|as_crispy_field }}</td>
+                                            <td>{{ form.updated_by|as_crispy_field }}</td>
+                                            <td>
+                                                {% if form.instance.pk %}
+                                                <input type="checkbox" name="{{ form.prefix }}-DELETE" id="id_{{ form.prefix }}-DELETE">
+                                                <label for="id_{{ form.prefix }}-DELETE">Delete</label>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <input type="hidden" name="{{ shipment_history_formset.management_form.prefix }}-TOTAL_FORMS" id="id_{{ shipment_history_formset.management_form.prefix }}-TOTAL_FORMS" value="{{ shipment_history_formset.management_form.total_forms }}">
+                                <input type="hidden" name="{{ shipment_history_formset.management_form.prefix }}-INITIAL_FORMS" id="id_{{ shipment_history_formset.management_form.prefix }}-INITIAL_FORMS" value="{{ shipment_history_formset.management_form.initial_forms }}">
+                                <input type="hidden" name="{{ shipment_history_formset.management_form.prefix }}-MIN_NUM_FORMS" id="id_{{ shipment_history_formset.management_form.prefix }}-MIN_NUM_FORMS" value="{{ shipment_history_formset.management_form.min_num_forms }}">
+                                <input type="hidden" name="{{ shipment_history_formset.management_form.prefix }}-MAX_NUM_FORMS" id="id_{{ shipment_history_formset.management_form.prefix }}-MAX_NUM_FORMS" value="{{ shipment_history_formset.management_form.max_num_forms }}">
+                                <button type="button" id="add-history-btn" class="btn btn-info">Add Shipment History</button>
+                                
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Add Package
+                            </div>
+                            <div class="card-body">
+                                <table>
+                                    <thead>
+                                        <!-- <tr>
+                                            <th>Quantity</th>
+                                            <th>Piece Type</th>
+                                            <th>Description</th>
+                                            <th>Length(cm)</th>
+                                            <th>Width(cm)</th>
+                                            <th>Height(cm)</th>
+                                            <th>Weight(kg)</th>
+                                            <th>Value($)</th>
+                                        </tr> -->
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>{{package_form.quantity|as_crispy_field}}</th>
+                                            <th>{{package_form.Piece_type|as_crispy_field}}</th>
+                                            <th>{{package_form.description|as_crispy_field}}</th>
+                                            <th>{{package_form.length|as_crispy_field}}</th>
+                                            <th>{{package_form.width|as_crispy_field}}</th>
+                                            <th>{{package_form.height|as_crispy_field}}</th>
+                                            <th>{{package_form.weight|as_crispy_field}}</th>
+                                            <th>{{package_form.value|as_crispy_field}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3"></div>
+                </div>
+            </form>
+        </div>
+        <script>
+        document.getElementById('add-history-btn').addEventListener('click', function() {
+            var formsetContainer = document.getElementById('shipment-history-formset');
+            var totalFormsInput = document.getElementById('id_shipmenthistory_set-TOTAL_FORMS');
+            var formCount = formsetContainer.children.length;
+
+            // Increment the total forms count
+            totalFormsInput.value = formCount + 1;
+
+            // Create a new form using a template
+            var newForm = document.createElement('tr');
+            newForm.innerHTML = `
+            <td><input type="date" name="shipmenthistory_set-${formCount}-date"></td>
+            <td><input type="text" name="shipmenthistory_set-${formCount}-location"></td>
+            <td>
+                <select name="shipmenthistory_set-${formCount}-status">
+                    <option value="Pending">Pending</option>
+                    <option value="Picked up">Picked up</option>
+                    <!-- Add other status options here -->
+                </select>
+            </td>
+            <td><textarea name="shipmenthistory_set-${formCount}-remark"></textarea></td>
+            <td><input type="text" name="shipmenthistory_set-${formCount}-updated_by"></td>
+            <td><input type="checkbox" name="shipmenthistory_set-${formCount}-DELETE"> Delete</td>
+        `;
+            formsetContainer.appendChild(newForm);
+        });
+
+
+        // Generate random 10-character string
+        function generateRandomString() {
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var length = 20;
+            var randomString = '';
+
+            for (var i = 0; i < length; i++) {
+                var randomIndex = Math.floor(Math.random() * characters.length);
+                randomString += characters.charAt(randomIndex);
+            }
+
+            return randomString;
+        }
+
+        // Prepopulate tracking number field on page load
+        document.addEventListener('DOMContentLoaded', function(event) {
+            var trackingField = document.getElementById('id_tracking_no');
+
+            // Check if the tracking field is empty
+            if (trackingField.value.trim() === '') {
+                var randomString = generateRandomString();
+                var trackingNo = randomString;
+                trackingField.value = trackingNo;
+            }
+        });
+        </script>
+    </main>
+    {% endblock %}

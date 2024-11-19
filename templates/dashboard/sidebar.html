@@ -1,0 +1,116 @@
+   <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                           
+
+
+                            <a class="nav-link" href="{% url 'add_shipment' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Shipment
+                            </a>
+
+
+
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#shipmentLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                                Shipment
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="shipmentLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'shipment_list' %}">All Shipment</a>
+                                    <a class="nav-link" href="{% url 'add-category' %}">Category</a>
+                                    <a class="nav-link" href="{% url 'add_tags' %}">Tags</a>
+                                </nav>
+                            </div>
+
+
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#clientLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-users"></i></div>
+                                Client
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="clientLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'add_clients' %}">Add</a>
+                                    <!-- <a class="nav-link" href="layout-static.html">All Clients</a> -->
+                                    
+                                </nav>
+                            </div>
+
+
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#agentLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-person-walking-luggage"></i></div>
+                                Agent
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="agentLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="{% url 'add_agent' %}">Add</a>
+                                    <!-- <a class="nav-link" href="layout-static.html">All Agent</a> -->
+                                    
+                                </nav>
+                            </div>
+
+
+                            <a class="nav-link" href="{% url 'add_shipment_method' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Shipment Method
+                            </a>
+
+
+                            <a class="nav-link" href="{% url 'add_shipment_mode' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Shipment Mode
+                            </a>
+
+
+                            <a class="nav-link" href="{% url 'add_shipment_location' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Shipment Location
+                            </a>
+
+
+                            <a class="nav-link" href="{% url 'add_shipment_carrier' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Shipment Carrier
+                            </a>
+
+                            <a class="nav-link" href="{% url 'add_payment_method' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Payment Method
+                            </a>
+
+
+                            <a class="nav-link" href="{% url 'add_shipment_status' %}">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus-minus"></i></div>
+                                Add Payment Status
+                            </a>
+
+                    
+                            
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="{% url 'setting' id=1%}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Settings
+                            </a>
+                            <a class="nav-link" href="">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Tables
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div>
+                </nav>
+            </div>

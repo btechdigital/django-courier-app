@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <title>Bootstrap Page with Centralized Content</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <style>
+    body {
+        background-color: #f3f3f3;
+    }
+
+    .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'leaflet/leaflet.css' %}" />
+    <script type="text/javascript" src="{% static 'leaflet/leaflet.js' %}"></script>
+</head>
+
+<body>
+    </head>
+
+    <body>
+        <!-- Header Start -->
+        <div class="jumbotron jumbotron-fluid mb-5" id="do-not-print">
+            <div class="container text-center py-5">
+                <h1 class="text-primary mb-4">Safe & Faster</h1>
+                <h1 class="text-white display-3 mb-5">Logistics Services</h1>
+                <div class="mx-auto" style="width: 100%; max-width: 600px;">
+                    <form action="{% url 'tracking' %}" method="get">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-light" style="padding: 30px;" name="track-id" placeholder="Tracking Id">
+                            {% csrf_token %}
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary px-3">Track & Trace</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Header End -->
+        {% if results %}
+        <!-- Pricing Plan Start -->
+        <div class="container-fluid pt-1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <button type="button" onclick="printPage()" class="btn btn-primary">Print</button>
+                        <div class="text-center p-2">
+                            <img src="{{cargo.shipment_logo.url}}" />
+                            <img src="{% static 'images/bar.png' %}" style="width:250px" />
+                            {% for r in results %}
+                            <p>{{r.tracking_no}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-2">
+                        <div class="bg-primary text-center p-2">
+                            <h3 class="m-0" style="color:#fff">Shipper Address</h3>
+                        </div>
+                        <div class="d-flex flex-column align-items-left py-4">
+                            <ul class="list-group list-group-light">
+                                <li class="list-group-item">Shippers Name: <span class="badge badge-info" style="font-size:15px">{{r.shipper_name}}</span></li>
+                                <li class="list-group-item">Shippers Phone: <span class="badge badge-info" style="font-size:15px">{{r.shipper_phone}}</span></li>
+                                <li class="list-group-item">Shippers Address: <span class="badge badge-info" style="font-size:15px">{{r.shipper_address}}</span></li>
+                                <li class="list-group-item">Shippers Email: <span class="badge badge-info" style="font-size:15px">{{r.shipper_email}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="bg-primary text-center p-2">
+                            <h3 class="m-0" style="color:#fff">Receiver Address</h3>
+                        </div>
+                        <div class="d-flex flex-column align-items-left py-4">
+                            <ul class="list-group list-group-light">
+                                <li class="list-group-item">Receivers Name: <span class="badge badge-info" style="font-size:15px">{{r.receivers_name}}</span></li>
+                                <li class="list-group-item">Receivers Phone: <span class="badge badge-info" style="font-size:15px">{{r.receivers_phone}}</span></li>
+                                <li class="list-group-item">Receivers Address: <span class="badge badge-info" style="font-size:15px">{{r.receivers_address}}</span></li>
+                                <li class="list-group-item">Receivers Email: <span class="badge badge-info" style="font-size:15px">{{r.receivers_email}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Video Modal -->
+        </div>
+        <div class="container-fluid ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 mb-2">
+                        <div class=" text-center p-2">
+                            <h3 class="m-0">Shipment Information</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-4 mb-2 mt-4">
+                        <div class="  p-2">
+                            <ul class="list-group list-group-light">
+                                <li class="list-group-item">Type Of Shipment: <span class="badge badge-success" style="font-size:15px">{{r.shipment_method}}</span></li>
+                                <li class="list-group-item">Payment Method: <span class="badge badge-success" style="font-size:15px">{{r.payment_mode}}</span></li>
+                                <li class="list-group-item">Carrier Ref No: <span class="badge badge-success" style="font-size:15px">{{r.carrier_reference_no}}</span></li>
+                                <li class="list-group-item">Destination: <span class="badge badge-success" style="font-size:15px">{{r.destination}}</span></li>
+                                <li class="list-group-item">Expected Delivery Date: <span class="badge badge-success" style="font-size:15px">{{r.expected_delivery_date}}</span></li>
+                                <li class="list-group-item">Expected Delivery Date: <span class="badge badge-success" style="font-size:15px">{{r.expected_delivery_date}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2 mt-4">
+                        <div class=" p-2">
+                            <ul class="list-group list-group-light">
+                                <li class="list-group-item">Courier: <span class="badge badge-success" style="font-size:15px">{{r.courier_name}}</span></li>
+                                <li class="list-group-item">Total Freight: <span class="badge badge-success" style="font-size:15px">{{r.total_frieght}}</span></li>
+                                <li class="list-group-item">Departure Time: <span class="badge badge-success" style="font-size:15px">{{r.departure_time}}</span></li>
+                                <li class="list-group-item">Pickup Date: <span class="badge badge-success" style="font-size:15px">{{r.pickup_date}}</span></li>
+                                <li class="list-group-item">Comments: <span class="badge badge-success" style="font-size:15px">{{r.comment}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-2 mt-4">
+                        <div class=" p-2">
+                            <ul class="list-group list-group-light">
+                                <li class="list-group-item">Mode: <span class="badge badge-success" style="font-size:15px">{{r.mode}}</span></li>
+                                <li class="list-group-item">Carrier: <span class="badge badge-success" style="font-size:15px">{{r.carrier}}</span></li>
+                                <li class="list-group-item">Origin: <span class="badge badge-success" style="font-size:15px">{{r.origin}}</span></li>
+                                <li class="list-group-item">Pickup Time: <span class="badge badge-success" style="font-size:15px">{{r.pickup_time}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="container-fluid ">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-12 mb-2">
+        <div class="text-center p-2">
+          <h3 class="m-0 mb-2">Map</h3>
+          <div id="map" style="height: 500px;"></div>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var map = L.map('map').setView([51.505, -0.09], 13);
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+                maxZoom: 18,
+              }).addTo(map);
+
+              // Convert shipper address to latitude and longitude
+              var shipperAddress = "{{ r.shipper_address }}";
+              var shipperGeocodeUrl = "https://api.opencagedata.com/geocode/v1/json?key=84e8ca7ad86943b7b4247ad1e0e49b0c&q=" + encodeURIComponent(shipperAddress);
+
+              fetch(shipperGeocodeUrl)
+                .then(function(response) {
+                  return response.json();
+                })
+                .then(function(data) {
+                  if (data.results.length > 0) {
+                    var shipperLocation = data.results[0].geometry;
+                    var shipperMarker = L.marker([shipperLocation.lat, shipperLocation.lng]).addTo(map);
+                    shipperMarker.bindPopup("Shipper's Address: " + shipperAddress);
+                  } else {
+                    console.error("No results found for shipper address.");
+                  }
+                })
+                .catch(function(error) {
+                  console.error("Error fetching shipper location:", error);
+                });
+
+              // Convert receiver address to latitude and longitude
+              var receiverAddress = "{{ r.receiver_address }}";
+              var receiverGeocodeUrl = "https://api.opencagedata.com/geocode/v1/json?key=84e8ca7ad86943b7b4247ad1e0e49b0c&q=" + encodeURIComponent(receiverAddress);
+
+              fetch(receiverGeocodeUrl)
+                .then(function(response) {
+                  return response.json();
+                })
+                .then(function(data) {
+                  if (data.results.length > 0) {
+                    var receiverLocation = data.results[0].geometry;
+                    var receiverMarker = L.marker([receiverLocation.lat, receiverLocation.lng]).addTo(map);
+                    receiverMarker.bindPopup("Receiver's Address: " + receiverAddress);
+                  } else {
+                    console.error("No results found for receiver address.");
+                  }
+                })
+                .catch(function(error) {
+                  console.error("Error fetching receiver location:", error);
+                });
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        {% if r.shipment_history %}
+        <div class="container-fluid ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 mb-2">
+                        <div class=" text-center p-2">
+                            <h3 class="m-0">Shipment History</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="container mb-8">
+                <div class="row align-items-center">
+                    <div class="col-md-12 mb-8">
+                        <div class=" text-center p-2">
+                            <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th>Updated By</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for s in r.shipment_history.all %}
+                                    <tr>
+                                        <td>{{s.date}}</td>
+                                        <td>{{s.time}}</td>
+                                        <td>{{s.lacation}}</td>
+                                        <td>{{s.status}}</td>
+                                        <td>{{s.updated_by}}</td>
+                                        <td>{{s.remark}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 mb-2">
+                        <div class=" text-center p-2">
+                            <h3 class="m-0">Packages</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid ">
+            <div class="container mb-8">
+                <div class="row align-items-center">
+                    <div class="col-md-12 mb-8">
+                        <div class=" text-center p-2">
+                            <table class="table align-middle mb-0 bg-white">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Quantity</th>
+                                        <th>Piece Type</th>
+                                        <th>Description</th>
+                                        <th>Length(cm)</th>
+                                        <th>Width(cm)</th>
+                                        <th>Height(cm)</th>
+                                        <th>Weight(kg)</th>
+                                        <th>Value($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for s in r.shipment_package.all %}
+                                    <tr>
+                                        <th>{{s.quantity}}</th>
+                                        <th>{{s.Piece_type}}</th>
+                                        <th>{{s.description}}</th>
+                                        <th>{{s.length}}</th>
+                                        <th>{{s.width}}</th>
+                                        <th>{{s.height}}</th>
+                                        <th>{{s.weight}}</th>
+                                        <th>{{s.value}}</th>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% else%}
+        <h2 class="text-center"> No Reslult</h2>
+        {% endif %}
+        <script>
+        function printPage() {
+            // Clone the document
+            var clone = document.cloneNode(true);
+
+            // Remove the "do-not-print" div from the cloned document
+            var doNotPrintDiv = clone.getElementById('do-not-print');
+            if (doNotPrintDiv) {
+                doNotPrintDiv.remove();
+            }
+
+            // Open a new window or iframe with the cloned content and print it
+            var printWindow = window.open('', '_blank');
+            printWindow.document.open();
+            printWindow.document.write(clone.documentElement.innerHTML);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        </script>
+        <footer class="mt-4 bg-dark">
+            <div class="text-center p-3 bg-dark">
+                <a class="text-white" href="">© 2024 Copyright: Dash Tracker</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </body>
+
+</html>
